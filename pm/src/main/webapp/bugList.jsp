@@ -120,7 +120,7 @@
                             <a href="<c:url value="/bugList.jsp"/>"><i class="fa fa-table fa-fw"></i> Bug列表</a>
                         </li>
                         <li>
-                            <a href="tables.html"><i class="fa fa-warning fa-fw"></i> 报告新的Bug</a>
+                            <a href="<c:url value="/bugDetail.jsp"/>"><i class="fa fa-warning fa-fw"></i> 报告新的Bug</a>
                         </li>
                         <li>
                             <a href="tables.html"><i class="fa fa-users fa-fw"></i> 系统用户管理</a>
