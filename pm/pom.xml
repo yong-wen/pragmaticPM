@@ -80,6 +80,16 @@
   		<artifactId>jstl</artifactId>
   		<version>1.2</version>
   	</dependency>
+  	<dependency>
+  		<groupId>org.mybatis</groupId>
+  		<artifactId>mybatis</artifactId>
+  		<version>3.1.1</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.mybatis</groupId>
+  		<artifactId>mybatis-spring</artifactId>
+  		<version>1.2.2</version>
+  	</dependency>
   </dependencies>
   <build>
     <finalName>pm</finalName>

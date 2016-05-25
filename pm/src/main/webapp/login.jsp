@@ -23,17 +23,10 @@
                         <h3 class="panel-title">用户登录</h3>
                     </div>
                     <div class="panel-body">
-                        <form role="form">
+                        <form action="<c:url value="/login"/>" role="form" method="post">
                             <fieldset>
                                 <div class="form-group">
-                                	<select class="form-control">
-                                		<option value="">吴老师</option>
-                                		<option value="">单老师</option>
-                                		<option value="">朱东</option>
-                                		<option value="">吴佳迪</option>
-                                		<option value="">娄海洋</option>
-                                		<option value="">文勇</option>
-                                	</select>
+                                	<input class="form-control" placeholder="用户名" name="userId" type="password" value="">
                                 </div>
                                 <div class="form-group">
                                     <input class="form-control" placeholder="密码" name="password" type="password" value="">
@@ -44,7 +37,7 @@
                                     </label>
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->
-                                <a href="<c:url value="/index.jsp"/>" class="btn btn-lg btn-success btn-block">登录</a>
+                                <button type="submit" class="btn btn-lg btn-success btn-block">登录</button>
                             </fieldset>
                         </form>
                     </div>
