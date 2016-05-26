@@ -5,6 +5,7 @@ public class PmUser {
 	private String lastName;
 	private String firstName;
 	private String loginPwd;
+	private String email;
 	private UserType userType;
 	public String getUserId() {
 		return userId;
@@ -36,5 +37,12 @@ public class PmUser {
 	public void setUserType(UserType userType) {
 		this.userType = userType;
 	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
 	
 }

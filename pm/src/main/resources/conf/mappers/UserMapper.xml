@@ -5,22 +5,15 @@
 
  	<resultMap type="com.pspm.entity.PmUser" id="userBasicInfo">
         <id property="userId" column="USER_ID"/>  
-    	<result property="loginPwd" column="LOGIN_PWD"/> 
-    	<result property="salt" column="SALT"/> 
-    	<result property="userName" column="USER_NAME"/> 
-    	<result property="gender" column="GENDER"/> 
-    	<result property="userType" column="TYPE_CD" typeHandler="com.amep.entity.handler.EnumUserTypeHandler"/> 
-    	<result property="email" column="EMAIL"/> 
-    	<result property="tel" column="TEL"/> 
-    	<result property="birthDay" column="BIRTHDAY"/> 
-    	<result property="avatarImgUrl" column="AVATAR_IMG_URL"/>
-    	<result property="status" column="STATUS_CD" typeHandler="com.amep.entity.handler.EnumUserStatusHandler"/> 
-    	<result property="createTs" column="CRETE_TS"/>
-    	<association property="org" column="ORG_ID" select="com.amep.mapper.OrgnizationMapper.selectOrgById"></association>
-    	<association property="topOrg" column="TOP_ORG_ID" select="com.amep.mapper.OrgnizationMapper.selectOrgById"></association>
+    	<result property="firtName" column="SALT"/> 
+    	<result property="email" column="EMAIL"/>
+    	<result property="userType" column="TYPE_CD" typeHandler="org.apache.ibatis.type.EnumTypeHandler"/>
     </resultMap>
     
     <select id="loginUser" parameterType="map" resultMap="userBasicInfo">
-    	
+    	SELECT USER_ID, FIRST_NM, EMAIL, USER_TYPE_CD
+    	  FROM M_USER
+    	 WHERE USER_ID = #{userId}
+    	   AND LOGIN_PWD = #{pwd}
     </select>
 </mapper>
