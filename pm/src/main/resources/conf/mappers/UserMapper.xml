@@ -5,7 +5,7 @@
 
  	<resultMap type="com.pspm.entity.PmUser" id="userBasicInfo">
         <id property="userId" column="USER_ID"/>  
-    	<result property="firtName" column="SALT"/> 
+    	<result property="firstName" column="FIRST_NM"/> 
     	<result property="email" column="EMAIL"/>
     	<result property="userType" column="TYPE_CD" typeHandler="org.apache.ibatis.type.EnumTypeHandler"/>
     </resultMap>

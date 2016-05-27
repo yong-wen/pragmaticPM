@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
-
 <head>
 
     <meta charset="utf-8">
@@ -25,18 +24,23 @@
                     <div class="panel-body">
                         <form action="<c:url value="/login"/>" role="form" method="post">
                             <fieldset>
+                            	<c:if test="${not empty errorMsg}">
+                            	<div class="form-group">
+                                	<p class="text-danger"><c:out value="${errorMsg}"/></p>
+                                </div>
+                            	</c:if>
                                 <div class="form-group">
-                                	<input class="form-control" placeholder="用户名" name="userId" type="password" value="">
+                                	<input class="form-control" placeholder="用户名" name="userId" type="text" value="">
                                 </div>
                                 <div class="form-group">
                                     <input class="form-control" placeholder="密码" name="password" type="password" value="">
                                 </div>
-                                <div class="checkbox">
+                                <!-- <div class="checkbox">
                                     <label>
                                         <input name="remember" type="checkbox" value="Remember Me">自动登录
                                     </label>
                                 </div>
-                                <!-- Change this to a button or input when using this as a form -->
+                                 -->
                                 <button type="submit" class="btn btn-lg btn-success btn-block">登录</button>
                             </fieldset>
                         </form>

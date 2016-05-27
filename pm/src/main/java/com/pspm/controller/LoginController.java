@@ -22,11 +22,17 @@ public class LoginController {
 		PmUser vUser = userMapper.loginUser(userId, pwd);
 		if(vUser==null){
 			model.addAttribute("userId", userId);
-			model.addAttribute("errorMsg", "用户名密码不正确");
+			model.addAttribute("errorMsg", "用户名或者密码不正确");
 			return "login";
 		}else{
 			req.getSession().setAttribute("currentUser", vUser);
 		}
-		return "index";
+		return "dashboard";
+	}
+	
+	@RequestMapping("/logout")
+	public String logout(HttpServletRequest req){
+		req.getSession().invalidate();
+		return "login";
 	}
 }
