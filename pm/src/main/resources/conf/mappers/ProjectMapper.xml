@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pspm.mapper.ProjectMapper">
+
+ 	<resultMap id="moduleBasicInfo" type="com.pspm.entity.Module">
+        <id property="moduleId" column="MODULE_ID"/>  
+    	<result property="moduleName" column="MODULE_NM"/>
+    </resultMap>
+    
+    <resultMap type="com.pspm.entity.PmUser" id="userBasic">
+    	<id property="userId" column="USER_ID"/>
+    	<result property="firstName" column="FIRST_NM"/>
+    </resultMap>
+    
+    <select id="getTopModulesByProjId" parameterType="java.lang.Integer" resultMap="moduleBasicInfo">
+    	SELECT MODULE_ID, MODULE_NM
+    	  FROM MODULE
+    	 WHERE PROJECT_ID = ${projectId}
+      ORDER BY SN_NBR
+    </select>
+    
+    <!-- 查询模块负责人 -->
+    <select id="getModuleOwnerByMId" parameterType="java.lang.Integer" resultMap="userBasic">
+    	SELECT USER_ID, FIRST_NM
+    	  FROM M_USER
+    	 WHERE USER_ID = (SELECT MODULE_OWNER 
+    	 					FROM MODULE 
+    	 				   WHERE MODULE_ID = #{moduleId})
+    </select>
+</mapper>

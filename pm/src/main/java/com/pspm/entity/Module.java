@@ -2,7 +2,7 @@ package com.pspm.entity;
 
 public class Module {
 	private Integer moduleId;
-	private String ModuleName;
+	private String moduleName;
 	public Integer getModuleId() {
 		return moduleId;
 	}
@@ -10,10 +10,10 @@ public class Module {
 		this.moduleId = moduleId;
 	}
 	public String getModuleName() {
-		return ModuleName;
+		return moduleName;
 	}
 	public void setModuleName(String moduleName) {
-		ModuleName = moduleName;
+		this.moduleName = moduleName;
 	}
 	
 }

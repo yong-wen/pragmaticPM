@@ -1,6 +1,10 @@
 package com.pspm.entity;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import org.springframework.util.StringUtils;
 
 public class Bug {
 	private Integer bugId;
@@ -12,11 +16,17 @@ public class Bug {
 	private String status;
 	private PmUser detectedBy;
 	private Date detectedDt;
+	private String detectedDtStr;
 	private PmUser fixedBy;
 	private Date fixedDt;
 	private PmUser closedBy;
 	private Integer projectId;
 	private PmUser assignTo;
+	private Integer serverityLvl;
+	private PmUser createdBy;
+	private Date createDt;
+	
+	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	
 	public Integer getBugId() {
 		return bugId;
@@ -101,6 +111,37 @@ public class Bug {
 	}
 	public void setAssignTo(PmUser assignTo) {
 		this.assignTo = assignTo;
+	}
+	public Integer getServerityLvl() {
+		return serverityLvl;
+	}
+	public void setServerityLvl(Integer serverityLvl) {
+		this.serverityLvl = serverityLvl;
+	}
+	public String getDetectedDtStr() {
+		return detectedDtStr;
+	}
+	public void setDetectedDtStr(String detectedDtStr) {
+		if(!StringUtils.isEmpty(detectedDtStr)){
+			try {
+				this.detectedDt = sdf.parse(detectedDtStr);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+		this.detectedDtStr = detectedDtStr;
+	}
+	public PmUser getCreatedBy() {
+		return createdBy;
+	}
+	public void setCreatedBy(PmUser createdBy) {
+		this.createdBy = createdBy;
+	}
+	public Date getCreateDt() {
+		return createDt;
+	}
+	public void setCreateDt(Date createDt) {
+		this.createDt = createDt;
 	}
 	
 	

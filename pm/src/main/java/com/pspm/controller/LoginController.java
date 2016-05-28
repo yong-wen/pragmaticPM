@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pspm.entity.PmUser;
 import com.pspm.mapper.UserMapper;
+import com.pspm.utils.AppConstants;
 
 @Controller
 public class LoginController {
@@ -25,7 +26,8 @@ public class LoginController {
 			model.addAttribute("errorMsg", "用户名或者密码不正确");
 			return "login";
 		}else{
-			req.getSession().setAttribute("currentUser", vUser);
+			req.getSession().setAttribute(AppConstants.CURR_USER, vUser);
+			req.getSession().setAttribute(AppConstants.CURR_PROJ_ID, 1);
 		}
 		return "dashboard";
 	}

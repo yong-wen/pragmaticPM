@@ -3,5 +3,7 @@
 <configuration>
 	<mappers>
 		<mapper resource="conf/mappers/UserMapper.xml" />
+		<mapper resource="conf/mappers/ProjectMapper.xml" />
+		<mapper resource="conf/mappers/BugMapper.xml" />
 	</mappers>
 </configuration>
