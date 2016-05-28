@@ -8,4 +8,5 @@ public interface UserMapper {
 
 	PmUser loginUser(@Param("userId") String userId, @Param("pwd") String pwd);
 
+	PmUser getUserById(@Param("userId") String userId);
 }

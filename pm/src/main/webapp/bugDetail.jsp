@@ -100,7 +100,7 @@
 		                        				<label>严重程度</label>
 		                                        <select name="serverityLvl" id="serverityLvlSel" class="form-control">
 		                                            <c:forEach var="servOption" items="${severityOptions}">
-		                                            	<option value="${servOption.level}" <c:if test="${servOption.level==bug.serverityLvl}">selected="selected"</c:if> >${servOption.name}</option>
+		                                            	<option value="${servOption.code}" <c:if test="${servOption.code==bug.serverityLvl}">selected="selected"</c:if> >${servOption.name}</option>
 		                                            </c:forEach>
 		                                        </select>
 		                        			</div>

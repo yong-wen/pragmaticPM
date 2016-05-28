@@ -4,23 +4,33 @@ public enum Severity {
 	
 	Minor(1,"不严重"), Medium(2,"一般"), Major(3,"严重");
 	
-	private Severity(Integer level, String name){
-		this.level = level;
+	private Severity(int code, String name){
+		this.code = code;
 		this.name = name;
 	}
-	private Integer level;
+	private int code;
 	private String name;
-	public Integer getLevel() {
-		return level;
+	public int getCode() {
+		return code;
 	}
-	public void setLevel(Integer level) {
-		this.level = level;
+	public void setCode(int code) {
+		this.code = code;
 	}
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public static Severity findByLevel(int lvlVal){
+		Severity[] all = Severity.values();
+		for(Severity s: all){
+			if(s.getCode() == lvlVal){
+				return s;
+			}
+		}
+		return null;
 	}
 	
 }

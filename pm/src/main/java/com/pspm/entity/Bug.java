@@ -13,7 +13,7 @@ public class Bug {
 	private Module module;
 	private String steps;
 	private String comments;
-	private String status;
+	private BugStatus status;
 	private PmUser detectedBy;
 	private Date detectedDt;
 	private String detectedDtStr;
@@ -22,6 +22,7 @@ public class Bug {
 	private PmUser closedBy;
 	private Integer projectId;
 	private PmUser assignTo;
+	private Severity severity;
 	private Integer serverityLvl;
 	private PmUser createdBy;
 	private Date createDt;
@@ -58,10 +59,10 @@ public class Bug {
 	public void setComments(String comments) {
 		this.comments = comments;
 	}
-	public String getStatus() {
+	public BugStatus getStatus() {
 		return status;
 	}
-	public void setStatus(String status) {
+	public void setStatus(BugStatus status) {
 		this.status = status;
 	}
 	public PmUser getDetectedBy() {
@@ -117,6 +118,9 @@ public class Bug {
 	}
 	public void setServerityLvl(Integer serverityLvl) {
 		this.serverityLvl = serverityLvl;
+		if(serverityLvl!=null){
+			this.severity = Severity.findByLevel(serverityLvl);
+		}
 	}
 	public String getDetectedDtStr() {
 		return detectedDtStr;
@@ -142,6 +146,12 @@ public class Bug {
 	}
 	public void setCreateDt(Date createDt) {
 		this.createDt = createDt;
+	}
+	public Severity getSeverity() {
+		return severity;
+	}
+	public void setSeverity(Severity severity) {
+		this.severity = severity;
 	}
 	
 	

@@ -2,6 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.pspm.mapper.BugMapper">
+
+	<resultMap type="com.pspm.entity.Bug" id="bugMediumMap">
+		<id property="bugId" column="BUG_ID"/>  
+    	<result property="serverityLvl" column="SEVERITY"/> 
+    	<result property="priority" column="PRIORITY"/>
+    	<result property="title" column="TITLE"/>
+    	<result property="steps" column="STEPS"/>
+    	<result property="comments" column="COMMENTS"/>
+    	<result property="status" column="STATUS_CD" typeHandler="org.apache.ibatis.type.EnumTypeHandler"/>
+    	<result property="createDt" column="CRETE_DT"/>
+    	<association property="assignTo" column="ASSIGN_TO" select="com.pspm.mapper.UserMapper.getUserById"></association>
+    	<association property="createdBy" column="CRETE_ID" select="com.pspm.mapper.UserMapper.getUserById"></association>
+	</resultMap>
 	
 	<insert id="addBug" parameterType="com.pspm.entity.Bug">
 		INSERT INTO BUG (
@@ -14,5 +27,21 @@
 			#{serverityLvl}, #{assignTo.userId}, #{createdBy.userId}, #{createDt}
 		)
 	</insert>
+	
+	<select id="listOpenDefects" parameterType="map" resultMap="bugMediumMap">
+		SELECT BUG_ID, SEVERITY, PRIORITY, TITLE, STEPS, COMMENTS, STATUS_CD, ASSIGN_TO, CRETE_ID, CRETE_DT
+		  FROM BUG
+		 WHERE STATUS_CD = 'OPEN'
+		   AND PROJECT_ID = #{projectId}
+	  ORDER BY CRETE_DT DESC
+	     LIMIT #{startIndex} ,#{pageSize}
+	</select>
+	
+	<select id="cntOpenDefects" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		SELECT COUNT(1)
+		  FROM BUG
+		 WHERE STATUS_CD = 'OPEN'
+		   AND PROJECT_ID = #{projectId}
+	</select>
  	
 </mapper>

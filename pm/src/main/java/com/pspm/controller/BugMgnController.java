@@ -18,6 +18,7 @@ import com.pspm.entity.Severity;
 import com.pspm.mapper.BugMapper;
 import com.pspm.mapper.ProjectMapper;
 import com.pspm.utils.AppConstants;
+import com.pspm.utils.Pagination;
 
 @Controller
 @RequestMapping("/bug")
@@ -32,7 +33,7 @@ public class BugMgnController {
 	@RequestMapping("/create")
 	public String create(Model model, HttpServletRequest req){
 		Bug bug = new Bug();
-		bug.setServerityLvl(Severity.Medium.getLevel());
+		bug.setServerityLvl(Severity.Medium.getCode());
 		bug.setDetectedDt(new Date());
 		model.addAttribute("bug", bug);
 		
@@ -65,9 +66,10 @@ public class BugMgnController {
 			bug.setCreatedBy(curUser);
 			bug.setCreateDt(new Date());
 			bug.setProjectId(getCurProjectId(req));
+			bug.setStatus(BugStatus.OPEN);
 			bugMapper.addBug(bug);
 		}
-		return "forward:/bug/createdByMe";
+		return "forward:/bug/listOpen";
 	}
 	
 	private Integer getCurProjectId(HttpServletRequest req) {
@@ -79,9 +81,17 @@ public class BugMgnController {
 		return moduleOwner;
 	}
 
-	@RequestMapping("/createdByMe")
-	public String createdByMe(Bug bug, Model model){
+	@RequestMapping("/listOpen")
+	public String listOpen(Bug bug, Model model, HttpServletRequest req){
+		String pageNum = req.getParameter("pageNum");
+		Pagination pageParam = new Pagination(pageNum);
 		
+		Integer projectId = getCurrProjectId(req);
+		List<Bug> bugList = bugMapper.listOpenDefects(projectId, pageParam.getStartIndex(), pageParam.DEFAULT_PAGE_SIZE);
+		model.addAttribute("defectList", bugList);
+		Integer totalCnt = bugMapper.cntOpenDefects(projectId);
+		Pagination pagination = new Pagination(totalCnt, pageParam.getPageNum());
+		model.addAttribute("pagination", pagination);
 		return "bugList";
 	}
 }

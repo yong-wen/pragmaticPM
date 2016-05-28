@@ -10,10 +10,17 @@
     	<result property="userType" column="TYPE_CD" typeHandler="org.apache.ibatis.type.EnumTypeHandler"/>
     </resultMap>
     
+    
     <select id="loginUser" parameterType="map" resultMap="userBasicInfo">
     	SELECT USER_ID, FIRST_NM, EMAIL, USER_TYPE_CD
     	  FROM M_USER
     	 WHERE USER_ID = #{userId}
     	   AND LOGIN_PWD = #{pwd}
+    </select>
+    
+    <select id="getUserById" parameterType="String" resultMap="userBasicInfo">
+    	SELECT USER_ID, FIRST_NM, EMAIL, USER_TYPE_CD
+    	  FROM M_USER
+    	 WHERE USER_ID = #{userId}
     </select>
 </mapper>
