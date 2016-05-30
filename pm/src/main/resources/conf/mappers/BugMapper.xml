@@ -28,6 +28,12 @@
 		)
 	</insert>
 	
+	<update id="updateBugInfo" parameterType="com.pspm.entity.Bug">
+		UPDATE BUG
+		   SET TITLE=#{title}, PRIORITY=#{priority}, STEPS=#{steps}, COMMENTS=#{comments}
+		 WHERE BUG_ID = #{bugId}
+	</update>
+	
 	<select id="listOpenDefects" parameterType="map" resultMap="bugMediumMap">
 		SELECT BUG_ID, SEVERITY, PRIORITY, TITLE, STEPS, COMMENTS, STATUS_CD, ASSIGN_TO, CRETE_ID, CRETE_DT
 		  FROM BUG

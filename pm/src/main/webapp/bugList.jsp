@@ -47,10 +47,11 @@
 				                </thead>
 				                <tbody>
 				                	<c:forEach var="bug" items="${defectList}">
-				                	<tr data-title="<c:out value="${bug.title}"/>" data-steps="<c:out value="${bug.steps}"/>" data-comments="<c:out value="${bug.comments}"/>" class="dataRow">
-				                        <td># <c:out value="${bug.bugId}"/> - &nbsp;<a href="<c:url value="/bug/edit?bugId="/><c:out value="${bug.bugId}"/>">详情</a></td>
+				                	<tr data-bug-id="<c:out value="${bug.bugId}"/>" data-title="<c:out value="${bug.title}"/>" data-steps="<c:out value="${bug.steps}"/>" data-comments="<c:out value="${bug.comments}"/>" 
+				                		data-priority="<c:out value="${bug.priority}"/>" class="dataRow">
+				                        <td># <c:out value="${bug.bugId}"/></td>
 				                        <td><c:out value="${bug.severity.name}"/></td>
-				                        <td><c:out value="${bug.priority}"/></td>
+				                        <td><c:out value="${bug.priorityName}"/></td>
 				                        <td><c:out value="${bug.title}"/></td>
 				                        <td><c:out value="${bug.status.name}"/></td>
 				                        <td><c:out value="${bug.assignTo.firstName}"/></td>
@@ -91,9 +92,63 @@
 				<div class="col-lg-12">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-	                        <strong>标题：</strong><span id="titleDisp"></span>
+	                        <strong>标题：</strong><input type="text" id="titleDisp" name="title" style="width: 80%;">
+	                        <input type="hidden" id="bugId" name="bugId" value="">
 	                    </div>
 					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-2">
+					<div class="form-group">
+           				<label>优先级</label>
+                           <select name="priority" id="prioritySel" class="form-control">
+                           	   <option value="">--</option>
+                               <c:forEach var="priorityOpt" items="${priorities}">
+                        		<option value="${priorityOpt.code}">${priorityOpt.name}</option>
+                        	</c:forEach>
+                           </select>
+           			</div>
+				</div>
+				<div class="col-lg-2">
+					<div class="form-group">
+        				<label>状态</label>
+                        <select name="status" id="statusSel" class="form-control">
+                        	<c:forEach var="statusOption" items="${statusOptions}">
+                        		<option value="${statusOption}">${statusOption.name}</option>
+                        	</c:forEach>
+                        </select>
+        			</div>
+				</div>
+				<div class="col-lg-2">
+					<div class="form-group">
+        				<label>分配给</label>
+                        <select class="form-control">
+                            <option>自动分配</option>
+                            <option>文勇</option>
+                            <option>朱东</option>
+                            <option>吴佳迪</option>
+                            <option>娄海洋</option>
+                        </select>
+        			</div>
+				</div>
+				<div class="col-lg-2">
+					<div class="form-group">
+           				<label>修改人</label>
+                        <div>朱东</div>
+           			</div>
+				</div>
+				<div class="col-lg-2">
+					<div class="form-group">
+           				<label>修复日期</label>
+                        <div>2016-5-9</div>
+           			</div>
+				</div>
+				<div class="col-lg-2">
+					<div class="form-group">
+           				<label>发布日期</label>
+                        <div>2016-5-9</div>
+           			</div>
 				</div>
 			</div>
 			<div class="row">
@@ -127,10 +182,34 @@
                     </div>
                 </div>
 			</div>
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="form-group">
+           				<label>附件</label>
+                        <div>
+                        	<ul>
+                        		<li>xxx.doc</li>
+                        		<li>xxx.doc</li>
+                        	</ul>
+                        </div>
+           			</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-2">
+					<button id="saveBtn" type="button" class="btn btn-primary btn-block">保存</button>
+				</div>
+				<div class="col-lg-2">
+					<button type="reset" class="btn btn-default btn-block">重置</button>
+				</div>
+			</div>
 		</div>
     </div>
     <!-- /#wrapper -->
 
+	<script type="text/javascript">
+		var ctx = "${pageContext.request.contextPath}";
+	</script>
 	<jsp:include page="/commonScripts.jsp"></jsp:include>
 	<script src="<c:url value="/js/bugList.js"/>"></script>
 </body>

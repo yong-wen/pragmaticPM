@@ -9,15 +9,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pspm.entity.Bug;
 import com.pspm.entity.BugStatus;
 import com.pspm.entity.Module;
 import com.pspm.entity.PmUser;
+import com.pspm.entity.PriorityEnum;
 import com.pspm.entity.Severity;
 import com.pspm.mapper.BugMapper;
 import com.pspm.mapper.ProjectMapper;
 import com.pspm.utils.AppConstants;
+import com.pspm.utils.DataResult;
 import com.pspm.utils.Pagination;
 
 @Controller
@@ -87,11 +90,30 @@ public class BugMgnController {
 		Pagination pageParam = new Pagination(pageNum);
 		
 		Integer projectId = getCurrProjectId(req);
-		List<Bug> bugList = bugMapper.listOpenDefects(projectId, pageParam.getStartIndex(), pageParam.DEFAULT_PAGE_SIZE);
+		List<Bug> bugList = bugMapper.listOpenDefects(projectId, pageParam.getStartIndex(), Pagination.DEFAULT_PAGE_SIZE);
 		model.addAttribute("defectList", bugList);
 		Integer totalCnt = bugMapper.cntOpenDefects(projectId);
 		Pagination pagination = new Pagination(totalCnt, pageParam.getPageNum());
 		model.addAttribute("pagination", pagination);
+		
+		BugStatus[] allStatus = BugStatus.values();
+		model.addAttribute("statusOptions", allStatus);
+		PriorityEnum[] priorities = PriorityEnum.values();
+		model.addAttribute("priorities", priorities);
 		return "bugList";
+	}
+	
+	@RequestMapping("/update")
+	@ResponseBody
+	public DataResult update(Bug bug){
+		DataResult rlt = new DataResult(true);
+		if(bug.getBugId()!=null){
+			bugMapper.updateBugInfo(bug);
+			rlt.setMsg("保存成功");
+		}else{
+			
+		}
+		
+		return rlt;
 	}
 }

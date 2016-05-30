@@ -14,4 +14,6 @@ public interface BugMapper {
 
 	Integer cntOpenDefects(@Param("projectId") Integer projectId);
 
+	void updateBugInfo(Bug bug);
+
 }

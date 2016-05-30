@@ -8,7 +8,7 @@ import org.springframework.util.StringUtils;
 
 public class Bug {
 	private Integer bugId;
-	private String priority;
+	private Integer priority;
 	private String title;
 	private Module module;
 	private String steps;
@@ -35,10 +35,10 @@ public class Bug {
 	public void setBugId(Integer bugId) {
 		this.bugId = bugId;
 	}
-	public String getPriority() {
+	public Integer getPriority() {
 		return priority;
 	}
-	public void setPriority(String priority) {
+	public void setPriority(Integer priority) {
 		this.priority = priority;
 	}
 	public String getTitle() {
@@ -153,6 +153,18 @@ public class Bug {
 	public void setSeverity(Severity severity) {
 		this.severity = severity;
 	}
-	
+	public String getPriorityName(){
+		if(priority!=null){
+			PriorityEnum[] options = PriorityEnum.values();
+			for(PriorityEnum pro: options){
+				if(priority==pro.getCode()){
+					return pro.getName();
+				}
+			}
+			return "";
+		}else{
+			return "";
+		}
+	}
 	
 }
