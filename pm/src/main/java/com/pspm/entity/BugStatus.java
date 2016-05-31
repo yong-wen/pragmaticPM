@@ -1,7 +1,7 @@
 package com.pspm.entity;
 
 public enum BugStatus {
-	OPEN("未解决"), IN_PROGRESS("正在处理"), FIXED("已修复"), CLOSED("已解决"), DECLINED("不是Bug"), REOPEN("重新出现");
+	OPEN("未解决"), IN_PROGRESS("正在修改"), DECLINED("不是Bug"), FIXED("已修复"), CLOSED("已关闭"),  REOPEN("重新出现");
 	
 	private BugStatus(String name){
 		this.name = name;

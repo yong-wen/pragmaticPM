@@ -193,6 +193,20 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
+                            <i class="fa fa-info-circle fa-fw"></i> Bug管理流程和状态说明
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                        	<img alt="流程" src="<c:url value="/img/bugMgnProcess.png"/>" class="col-lg-10">
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
                             <i class="fa fa-bar-chart-o fa-fw"></i> 总数统计（近10天）
                             <div class="pull-right">
                                 <div class="btn-group">
