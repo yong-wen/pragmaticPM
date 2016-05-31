@@ -23,4 +23,10 @@
     	  FROM M_USER
     	 WHERE USER_ID = #{userId}
     </select>
+    
+    <select id="getAllUsers" resultMap="userBasicInfo">
+    	SELECT USER_ID, FIRST_NM, EMAIL, USER_TYPE_CD
+    	  FROM M_USER
+      ORDER BY USER_ID
+    </select>
 </mapper>

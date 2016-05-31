@@ -15,6 +15,7 @@
 	<jsp:include page="/commonHeader.jsp"></jsp:include>
 	<link href="<c:url value="/assets/dataTable/dataTables.bootstrap.css"/>" rel="stylesheet">
     <link href="<c:url value="/assets/dataTable/dataTables.responsive.css"/>" rel="stylesheet">
+    <link href="<c:url value="/assets/toastr/toastr.min.css"/>" rel="stylesheet">
 </head>
 
 <body>
@@ -47,8 +48,8 @@
 				                </thead>
 				                <tbody>
 				                	<c:forEach var="bug" items="${defectList}">
-				                	<tr data-bug-id="<c:out value="${bug.bugId}"/>" data-title="<c:out value="${bug.title}"/>" data-steps="<c:out value="${bug.steps}"/>" data-comments="<c:out value="${bug.comments}"/>" 
-				                		data-priority="<c:out value="${bug.priority}"/>" class="dataRow">
+				                	<tr id="row<c:out value="${bug.bugId}"/>" data-bug-id="<c:out value="${bug.bugId}"/>" data-title="<c:out value="${bug.title}"/>" data-steps="<c:out value="${bug.steps}"/>" data-comments="<c:out value="${bug.comments}"/>" 
+				                		data-priority="<c:out value="${bug.priority}"/>" data-assign-to="<c:out value="${bug.assignTo.userId}"/>" data-status="<c:out value="${bug.status}"/>" class="dataRow">
 				                        <td># <c:out value="${bug.bugId}"/></td>
 				                        <td><c:out value="${bug.severity.name}"/></td>
 				                        <td><c:out value="${bug.priorityName}"/></td>
@@ -122,16 +123,15 @@
 				</div>
 				<div class="col-lg-2">
 					<div class="form-group">
-        				<label>分配给</label>
-                        <select class="form-control">
-                            <option>自动分配</option>
-                            <option>文勇</option>
-                            <option>朱东</option>
-                            <option>吴佳迪</option>
-                            <option>娄海洋</option>
+        				<label>当前分配给</label>
+                        <select id="assignToSel" name="assignTo.userId" class="form-control">
+                            <c:forEach var="pmU" items="${users}">
+                            <option value="${pmU.userId}">${pmU.firstName}</option>
+                            </c:forEach>
                         </select>
         			</div>
 				</div>
+				
 				<div class="col-lg-2">
 					<div class="form-group">
            				<label>修改人</label>
@@ -182,7 +182,7 @@
                     </div>
                 </div>
 			</div>
-			<div class="row">
+			<!-- <div class="row">
 				<div class="col-lg-12">
 					<div class="form-group">
            				<label>附件</label>
@@ -194,7 +194,7 @@
                         </div>
            			</div>
 				</div>
-			</div>
+			</div> -->
 			<div class="row">
 				<div class="col-lg-2">
 					<button id="saveBtn" type="button" class="btn btn-primary btn-block">保存</button>
@@ -211,6 +211,7 @@
 		var ctx = "${pageContext.request.contextPath}";
 	</script>
 	<jsp:include page="/commonScripts.jsp"></jsp:include>
+	<script src="<c:url value="/assets/toastr/toastr.min.js"/>"></script>
 	<script src="<c:url value="/js/bugList.js"/>"></script>
 </body>
 

@@ -19,6 +19,7 @@ import com.pspm.entity.PriorityEnum;
 import com.pspm.entity.Severity;
 import com.pspm.mapper.BugMapper;
 import com.pspm.mapper.ProjectMapper;
+import com.pspm.mapper.UserMapper;
 import com.pspm.utils.AppConstants;
 import com.pspm.utils.DataResult;
 import com.pspm.utils.Pagination;
@@ -32,6 +33,9 @@ public class BugMgnController {
 	
 	@Autowired
 	BugMapper bugMapper;
+	
+	@Autowired
+	UserMapper userMapper;
 	
 	@RequestMapping("/create")
 	public String create(Model model, HttpServletRequest req){
@@ -100,6 +104,9 @@ public class BugMgnController {
 		model.addAttribute("statusOptions", allStatus);
 		PriorityEnum[] priorities = PriorityEnum.values();
 		model.addAttribute("priorities", priorities);
+		
+		List<PmUser> users = userMapper.getAllUsers();
+		model.addAttribute("users", users);
 		return "bugList";
 	}
 	
