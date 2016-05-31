@@ -16,6 +16,11 @@
 	<link href="<c:url value="/assets/dataTable/dataTables.bootstrap.css"/>" rel="stylesheet">
     <link href="<c:url value="/assets/dataTable/dataTables.responsive.css"/>" rel="stylesheet">
     <link href="<c:url value="/assets/toastr/toastr.min.css"/>" rel="stylesheet">
+    <style>
+    .inv{
+    	display: none;
+    }
+    </style>
 </head>
 
 <body>
@@ -131,23 +136,22 @@
                         </select>
         			</div>
 				</div>
-				
-				<div class="col-lg-2">
+				<div id="fixedBy" class="col-lg-2 inv">
 					<div class="form-group">
            				<label>修改人</label>
-                        <div>朱东</div>
+                        <div id="fixedByDisp"></div>
            			</div>
 				</div>
-				<div class="col-lg-2">
+				<div id="fixedDt" class="col-lg-2 inv">
 					<div class="form-group">
            				<label>修复日期</label>
-                        <div>2016-5-9</div>
+                        <div id="fixedDtDisp"></div>
            			</div>
 				</div>
-				<div class="col-lg-2">
+				<div id="publishedDt" class="col-lg-2 inv">
 					<div class="form-group">
            				<label>发布日期</label>
-                        <div>2016-5-9</div>
+                        <div id="publishedDtDisp"></div>
            			</div>
 				</div>
 			</div>
@@ -166,14 +170,14 @@
                 <div class="col-lg-7">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            交流
-                            <div class="pull-right">
+                            备注
+                            <!-- <div class="pull-right">
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-default btn-xs">
                                         添加说明
                                     </button>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="panel-body">
                             <textarea id="commentsDisp" rows="12" cols="4" class="col-lg-12">
