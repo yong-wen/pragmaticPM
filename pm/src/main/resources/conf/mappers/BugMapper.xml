@@ -50,5 +50,11 @@
 		 WHERE STATUS_CD = 'OPEN'
 		   AND PROJECT_ID = #{projectId}
 	</select>
+	
+	<select id="getBugById" parameterType="java.lang.Integer" resultMap="bugMediumMap">
+		SELECT BUG_ID, SEVERITY, PRIORITY, TITLE, STEPS, COMMENTS, STATUS_CD, ASSIGN_TO, CRETE_ID, CRETE_DT
+		  FROM BUG
+		 WHERE BUG_ID = #{bugId}
+	</select>
  	
 </mapper>

@@ -20,6 +20,7 @@ import com.pspm.entity.Severity;
 import com.pspm.mapper.BugMapper;
 import com.pspm.mapper.ProjectMapper;
 import com.pspm.mapper.UserMapper;
+import com.pspm.service.BugService;
 import com.pspm.utils.AppConstants;
 import com.pspm.utils.DataResult;
 import com.pspm.utils.Pagination;
@@ -36,6 +37,9 @@ public class BugMgnController {
 	
 	@Autowired
 	UserMapper userMapper;
+	
+	@Autowired
+	BugService bugService;
 	
 	@RequestMapping("/create")
 	public String create(Model model, HttpServletRequest req){
@@ -114,11 +118,18 @@ public class BugMgnController {
 	@ResponseBody
 	public DataResult update(Bug bug){
 		DataResult rlt = new DataResult(true);
-		if(bug.getBugId()!=null){
-			bugMapper.updateBugInfo(bug);
-			rlt.setMsg("保存成功");
-		}else{
-			
+		try{
+			if(bug.getBugId()!=null){
+				bugService.updateBug(bug);
+				rlt.setMsg("保存成功");
+			}else{
+				rlt.setSucceed(false);
+				rlt.setMsg("更新失败");
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+			rlt.setSucceed(false);
+			rlt.setMsg("系统错误");
 		}
 		
 		return rlt;

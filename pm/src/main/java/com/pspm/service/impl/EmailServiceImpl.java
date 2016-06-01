@@ -9,12 +9,18 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pspm.entity.Bug;
+import com.pspm.mapper.UserMapper;
 import com.pspm.service.MailService;
 
 @Service
 public class EmailServiceImpl implements MailService{
+	
+	@Autowired
+	UserMapper userMapper;
 	
 	private String user = "office@walkclass.com";
 	// 授权码 ezjneejvglxrcije
@@ -65,6 +71,43 @@ public class EmailServiceImpl implements MailService{
 		sb.append("</html>");
 		EmailServiceImpl mailServ = new EmailServiceImpl();
 		mailServ.sendEmail(receiptEmail, title, sb.toString());
+	}
+
+	public void sendAssignmentEmail(Bug bug) {
+		String assignedToEmail = userMapper.getUserEmailById(bug.getAssignTo().getUserId());
+		if(assignedToEmail!=null){
+			String title = "["+bug.getStatus().getName()+"] 云课堂Bug#"+bug.getBugId() + "分配给你了";
+			String content = buildBugDetailHtml(bug);
+			this.sendEmail(assignedToEmail, title, content);
+		}
+	}
+
+	private String buildBugDetailHtml(Bug bug) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<!DOCTYPE html>");
+		sb.append("<html><head>");
+		sb.append("<meta charset='utf-8'>");
+		sb.append("<title>学呗软件Bug管理</title>");
+		sb.append("</head>");
+		sb.append("<body>");
+		sb.append("<h3>【");
+		sb.append(bug.getStatus().getName());
+		sb.append("】");
+		sb.append(bug.getTitle());
+		sb.append("</h3>");
+		sb.append("<h4>详细内容：");
+		sb.append("</h4>");
+		sb.append("<div>");
+		sb.append(bug.getSteps());
+		sb.append("</div>");
+		sb.append("<h4>备注：");
+		sb.append("</h4>");
+		sb.append("<div>");
+		sb.append(bug.getComments());
+		sb.append("</div>");
+		sb.append("</body>");
+		sb.append("</html>");
+		return sb.toString();
 	}
 
 }

@@ -66,6 +66,7 @@ function saveInfo(){
 	var assignToV = $("#assignToSel").val();
 	var statusV = $("#statusSel").val();
 	
+	$("#saveBtn").attr("disabled", "true");
 	$.ajax({
 		type : "post",
 		url : ctx+"/bug/update.json",

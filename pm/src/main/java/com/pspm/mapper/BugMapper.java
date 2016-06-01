@@ -16,4 +16,6 @@ public interface BugMapper {
 
 	void updateBugInfo(Bug bug);
 
+	Bug getBugById(@Param("bugId") Integer bugId);
+
 }

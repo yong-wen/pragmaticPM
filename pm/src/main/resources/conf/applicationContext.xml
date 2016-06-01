@@ -14,8 +14,9 @@
         <!-- mybatis -->
         <mybatis:scan base-package="com.pspm.mapper.**" />
         
+        <context:property-placeholder location="classpath:conf/appConfig.properties" ignore-unresolvable="true" />
         <!-- DB config properties -->
-        <context:property-placeholder location="classpath:conf/mysql.properties" ignore-unresolvable="true" />
+        <context:property-placeholder location="classpath:conf/mysql.properties" ignore-unresolvable="false" />
         <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close"> 
 		    <!-- 基本属性 url、user、password -->
 		    <property name="driverClassName" value="${jdbc.driverClassName}" />

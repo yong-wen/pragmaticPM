@@ -13,4 +13,6 @@ public interface UserMapper {
 	PmUser getUserById(@Param("userId") String userId);
 
 	List<PmUser> getAllUsers();
+
+	String getUserEmailById(@Param("userId") String userId);
 }

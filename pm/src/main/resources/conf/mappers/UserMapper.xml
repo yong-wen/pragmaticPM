@@ -29,4 +29,10 @@
     	  FROM M_USER
       ORDER BY USER_ID
     </select>
+    
+    <select id="getUserEmailById" parameterType="java.lang.String" resultType="java.lang.String">
+    	SELECT EMAIL
+    	  FROM M_USER
+    	 WHERE USER_ID = #{userId}
+    </select>
 </mapper>
