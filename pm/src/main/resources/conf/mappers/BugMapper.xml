@@ -56,5 +56,49 @@
 		  FROM BUG
 		 WHERE BUG_ID = #{bugId}
 	</select>
+	
+	<select id="cntUnresolvedBugs" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		SELECT COUNT(BUG_ID)
+		  FROM BUG
+		 WHERE STATUS_CD &lt;&gt; 'CLOSED'
+		   AND STATUS_CD &lt;&gt; 'FIXED'
+		   AND PROJECT_ID = #{projectId}
+	</select>
+	
+	<select id="cntUnresolvedInModule" parameterType="map" resultType="java.lang.Integer">
+		SELECT COUNT(BUG_ID)
+		  FROM BUG
+		 WHERE STATUS_CD &lt;&gt; 'CLOSED'
+		   AND STATUS_CD &lt;&gt; 'FIXED'
+		   AND PROJECT_ID = #{projectId}
+		   AND MODULE_ID = #{moduleId}
+	</select>
+	
+	<select id="cntUnresolvedByCreator" parameterType="map" resultType="java.lang.Integer">
+		SELECT COUNT(BUG_ID)
+		  FROM BUG
+		 WHERE STATUS_CD &lt;&gt; 'CLOSED'
+		   AND STATUS_CD &lt;&gt; 'FIXED'
+		   AND PROJECT_ID = #{projectId}
+		   AND CRETE_ID = #{userId}
+	</select>
+	
+	<select id="listBugAssignedToMe" parameterType="map" resultMap="bugMediumMap">
+		SELECT BUG_ID, PRIORITY, STATUS_CD, TITLE, CRETE_DT 
+		  FROM BUG
+		 WHERE STATUS_CD &lt;&gt; 'CLOSED'
+		   AND PROJECT_ID = #{projectId}
+		   AND ASSIGN_TO = #{userId}
+	  ORDER BY BUG_ID DESC
+		 LIMIT #{rowCnt} 
+	</select>
+	
+	<select id="cntAssignToMe" parameterType="map" resultType="java.lang.Integer">
+		SELECT COUNT(BUG_ID) 
+		  FROM BUG
+		 WHERE STATUS_CD &lt;&gt; 'CLOSED'
+		   AND PROJECT_ID = #{projectId}
+		   AND ASSIGN_TO = #{userId}
+	</select>
  	
 </mapper>

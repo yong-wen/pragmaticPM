@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 
@@ -12,7 +13,6 @@
     <meta name="author" content="">
     
 	<jsp:include page="/commonHeader.jsp"></jsp:include>
-	<link href="<c:url value="/assets/morrisjs/morris.css"/>" rel="stylesheet" type="text/css">
 	<style>
 		.btnArea{
 			padding-top: 10px;
@@ -39,7 +39,7 @@
         	</div>
             <div class="row">
                 <div class="col-lg-12">
-                    <h4 class="page-header">Bug 统计</h4>
+                    <h4 class="page-header">未解决 Bug 统计 (共 <c:out value="${totalBugCnt}"/> 个)</h4>
                 </div>
             </div>
             <!-- /.row -->
@@ -52,12 +52,12 @@
                                     <i class="fa fa-laptop fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">26</div>
+                                    <div class="huge"><c:out value="${serverEndCnt}"/></div>
                                     <div>服务端</div>
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="<c:url value="/bug/listUnresolved"/>?moduleId=<c:out value="${serverModuleId}"/>">
                             <div class="panel-footer">
                                 <span class="pull-left">详细列表</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -74,7 +74,7 @@
                                     <i class="fa fa-android fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">12</div>
+                                    <div class="huge"><c:out value="${androidEndCnt}"/></div>
                                     <div>安卓端</div>
                                 </div>
                             </div>
@@ -96,7 +96,7 @@
                                     <i class="fa fa-apple fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">124</div>
+                                    <div class="huge"><c:out value="${iOSEndCnt}"/></div>
                                     <div>iOS</div>
                                 </div>
                             </div>
@@ -118,7 +118,7 @@
                                     <i class="fa fa-coffee fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">13</div>
+                                    <div class="huge"><c:out value="${createdByMeCnt}"/></div>
                                     <div>我提的Bug</div>
                                 </div>
                             </div>
@@ -138,7 +138,7 @@
             	<div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <i class="fa fa-tasks fa-fw"></i> 分配给我任务（7）
+                            <i class="fa fa-tasks fa-fw"></i> 分配给我任务（<c:out value="${assignToMeCnt}"/>）
                             <div class="pull-right">
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-default btn-xs">
@@ -161,27 +161,15 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Mark</td>
-                                            <td>待处理</td>
-                                            <td>Otto</td>
-                                            <td>2016-05-08</td>
+                                    	<c:forEach var="bug" items="${assignedToMeList}">
+                                    	<tr>
+                                            <td><c:out value="${bug.bugId}"/></td>
+                                            <td><c:out value="${bug.priorityName}" /></td>
+                                            <td><c:out value="${bug.status.name}" /></td>
+                                            <td><c:out value="${bug.title}" /></td>
+                                            <td><fmt:formatDate pattern="yyyy-MM-dd" value="${bug.createDt}"/></td>
                                         </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Jacob</td>
-                                            <td>待处理</td>
-                                            <td>Thornton</td>
-                                            <td>2016-05-08</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Larry</td>
-                                            <td>待处理</td>
-                                            <td>the Bird</td>
-                                            <td>2016-05-08</td>
-                                        </tr>
+                                    	</c:forEach>
                                     </tbody>
                                 </table>
                             </div>
@@ -203,34 +191,11 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <i class="fa fa-bar-chart-o fa-fw"></i> 总数统计（近10天）
-                            <div class="pull-right">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-default btn-xs">
-                                        查看所有
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <div id="morris-area-chart"></div>
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
     <!-- /#wrapper -->
 
 	<jsp:include page="/commonScripts.jsp"></jsp:include>
-	<script src="<c:url value="/assets/morrisjs/morris.min.js"/>"></script>
-	<script src="<c:url value="/assets/raphael/raphael-min.js"/>"></script>
 	<script src="<c:url value="/js/index.js"/>"></script>
 </body>
 

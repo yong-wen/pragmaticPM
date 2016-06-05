@@ -161,10 +161,8 @@ public class Bug {
 					return pro.getName();
 				}
 			}
-			return "";
-		}else{
-			return "";
 		}
+		return "-";
 	}
 	
 }

@@ -77,13 +77,11 @@
 			<ul class="nav" id="side-menu">
 				<li><a href="<c:url value="/dashboard.jsp"/>"><i
 						class="fa fa-dashboard fa-fw"></i> 控制台首页</a></li>
-				<li><a href="<c:url value="/bug/listOpen"/>"><i
+				<li><a href="<c:url value="/bug/list"/>"><i
 						class="fa fa-table fa-fw"></i> Bug列表</a></li>
 				<li><a href="<c:url value="/bug/create"/>"><i class="fa fa-bug fa-fw"></i>
 						报告新的Bug</a></li>
 			</ul>
 		</div>
-		<!-- /.sidebar-collapse -->
 	</div>
-	<!-- /.navbar-static-side -->
 </nav>

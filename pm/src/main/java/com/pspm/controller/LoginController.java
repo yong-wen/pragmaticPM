@@ -29,7 +29,7 @@ public class LoginController {
 			req.getSession().setAttribute(AppConstants.CURR_USER, vUser);
 			req.getSession().setAttribute(AppConstants.CURR_PROJ_ID, 1);
 		}
-		return "dashboard";
+		return "redirect:/home";
 	}
 	
 	@RequestMapping("/logout")
@@ -37,4 +37,5 @@ public class LoginController {
 		req.getSession().invalidate();
 		return "login";
 	}
+	
 }

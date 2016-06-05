@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pspm.entity.Bug;
@@ -24,6 +25,7 @@ import com.pspm.service.BugService;
 import com.pspm.utils.AppConstants;
 import com.pspm.utils.DataResult;
 import com.pspm.utils.Pagination;
+import com.pspm.utils.SessionUtils;
 
 @Controller
 @RequestMapping("/bug")
@@ -76,24 +78,20 @@ public class BugMgnController {
 			bug.setDetectedBy(curUser);
 			bug.setCreatedBy(curUser);
 			bug.setCreateDt(new Date());
-			bug.setProjectId(getCurProjectId(req));
+			bug.setProjectId(SessionUtils.getCurProjectId(req));
 			bug.setStatus(BugStatus.OPEN);
 			bugMapper.addBug(bug);
 		}
 		return "forward:/bug/listOpen";
 	}
 	
-	private Integer getCurProjectId(HttpServletRequest req) {
-		return (Integer) req.getSession().getAttribute(AppConstants.CURR_PROJ_ID);
-	}
-
 	private PmUser getModuleDefaultAssignee(Module module) {
 		PmUser moduleOwner = projectMapper.getModuleOwnerByMId(module.getModuleId());
 		return moduleOwner;
 	}
 
-	@RequestMapping("/listOpen")
-	public String listOpen(Bug bug, Model model, HttpServletRequest req){
+	@RequestMapping("/list")
+	public String list(Bug bug, Model model, HttpServletRequest req){
 		String pageNum = req.getParameter("pageNum");
 		Pagination pageParam = new Pagination(pageNum);
 		
@@ -111,6 +109,12 @@ public class BugMgnController {
 		
 		List<PmUser> users = userMapper.getAllUsers();
 		model.addAttribute("users", users);
+		return "bugList";
+	}
+	
+	@RequestMapping("/listUnresolved")
+	public String listUnresolved(@RequestParam("moduleId") Integer moduleId, Model model, HttpServletRequest req){
+		
 		return "bugList";
 	}
 	
